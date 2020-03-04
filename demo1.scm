@@ -20,7 +20,7 @@
 
 (use-modules ((system foreign) #:prefix ffi:))
 (use-modules (bytestructures guile))
-(use-modules (system ffi-help-rt))
+(use-modules (yaml ffi-help-rt))
 (use-modules (yaml) (yaml libyaml))
 
 (use-modules (ice-9 format))

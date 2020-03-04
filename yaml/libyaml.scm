@@ -1,7 +1,7 @@
 ;; generated with `guild compile-ffi yaml/libyaml.ffi'
 
 (define-module (yaml libyaml)
-  #:use-module (system ffi-help-rt)
+  #:use-module (yaml ffi-help-rt)
   #:use-module ((system foreign) #:prefix ffi:)
   #:use-module (bytestructures guile)
   )

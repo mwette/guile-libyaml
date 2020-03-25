@@ -14,10 +14,10 @@
           (delay (fh-link-proc
                    ffi-void*
                    "yaml_get_version_string"
-                   (list ffi:void)
+                   (list)
                    yaml-libyaml-llibs))))
-    (lambda (_)
-      (let () ((force ~yaml_get_version_string) _)))))
+    (lambda ()
+      (let () ((force ~yaml_get_version_string))))))
 (export yaml_get_version_string)
 
 ;; void yaml_get_version(int *major, int *minor, int *patch);
@@ -159,23 +159,6 @@
 ;;   YAML_UTF16LE_ENCODING,
 ;;   YAML_UTF16BE_ENCODING,
 ;; };
-(define enum-yaml_encoding_e-enum-nvl
-  '((YAML_ANY_ENCODING . 0)
-    (YAML_UTF8_ENCODING . 1)
-    (YAML_UTF16LE_ENCODING . 2)
-    (YAML_UTF16BE_ENCODING . 3))
-  )
-(define enum-yaml_encoding_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_encoding_e-enum-nvl))
-(define-public (unwrap-enum-yaml_encoding_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_encoding_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_encoding_e v)
-  (assq-ref enum-yaml_encoding_e-enum-vnl v))
 
 ;; typedef enum yaml_break_e {
 ;;   YAML_ANY_BREAK,
@@ -209,23 +192,6 @@
 ;;   YAML_LN_BREAK,
 ;;   YAML_CRLN_BREAK,
 ;; };
-(define enum-yaml_break_e-enum-nvl
-  '((YAML_ANY_BREAK . 0)
-    (YAML_CR_BREAK . 1)
-    (YAML_LN_BREAK . 2)
-    (YAML_CRLN_BREAK . 3))
-  )
-(define enum-yaml_break_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_break_e-enum-nvl))
-(define-public (unwrap-enum-yaml_break_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_break_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_break_e v)
-  (assq-ref enum-yaml_break_e-enum-vnl v))
 
 ;; typedef enum yaml_error_type_e {
 ;;   YAML_NO_ERROR,
@@ -271,27 +237,6 @@
 ;;   YAML_WRITER_ERROR,
 ;;   YAML_EMITTER_ERROR,
 ;; };
-(define enum-yaml_error_type_e-enum-nvl
-  '((YAML_NO_ERROR . 0)
-    (YAML_MEMORY_ERROR . 1)
-    (YAML_READER_ERROR . 2)
-    (YAML_SCANNER_ERROR . 3)
-    (YAML_PARSER_ERROR . 4)
-    (YAML_COMPOSER_ERROR . 5)
-    (YAML_WRITER_ERROR . 6)
-    (YAML_EMITTER_ERROR . 7))
-  )
-(define enum-yaml_error_type_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_error_type_e-enum-nvl))
-(define-public (unwrap-enum-yaml_error_type_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_error_type_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_error_type_e v)
-  (assq-ref enum-yaml_error_type_e-enum-vnl v))
 
 ;; typedef struct yaml_mark_s {
 ;;   /** The position index. */
@@ -373,25 +318,6 @@
 ;;   YAML_LITERAL_SCALAR_STYLE,
 ;;   YAML_FOLDED_SCALAR_STYLE,
 ;; };
-(define enum-yaml_scalar_style_e-enum-nvl
-  '((YAML_ANY_SCALAR_STYLE . 0)
-    (YAML_PLAIN_SCALAR_STYLE . 1)
-    (YAML_SINGLE_QUOTED_SCALAR_STYLE . 2)
-    (YAML_DOUBLE_QUOTED_SCALAR_STYLE . 3)
-    (YAML_LITERAL_SCALAR_STYLE . 4)
-    (YAML_FOLDED_SCALAR_STYLE . 5))
-  )
-(define enum-yaml_scalar_style_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_scalar_style_e-enum-nvl))
-(define-public (unwrap-enum-yaml_scalar_style_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_scalar_style_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_scalar_style_e v)
-  (assq-ref enum-yaml_scalar_style_e-enum-vnl v))
 
 ;; typedef enum yaml_sequence_style_e {
 ;;   YAML_ANY_SEQUENCE_STYLE,
@@ -422,22 +348,6 @@
 ;;   YAML_BLOCK_SEQUENCE_STYLE,
 ;;   YAML_FLOW_SEQUENCE_STYLE,
 ;; };
-(define enum-yaml_sequence_style_e-enum-nvl
-  '((YAML_ANY_SEQUENCE_STYLE . 0)
-    (YAML_BLOCK_SEQUENCE_STYLE . 1)
-    (YAML_FLOW_SEQUENCE_STYLE . 2))
-  )
-(define enum-yaml_sequence_style_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_sequence_style_e-enum-nvl))
-(define-public (unwrap-enum-yaml_sequence_style_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_sequence_style_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_sequence_style_e v)
-  (assq-ref enum-yaml_sequence_style_e-enum-vnl v))
 
 ;; typedef enum yaml_mapping_style_e {
 ;;   YAML_ANY_MAPPING_STYLE,
@@ -468,22 +378,6 @@
 ;;   YAML_BLOCK_MAPPING_STYLE,
 ;;   YAML_FLOW_MAPPING_STYLE,
 ;; };
-(define enum-yaml_mapping_style_e-enum-nvl
-  '((YAML_ANY_MAPPING_STYLE . 0)
-    (YAML_BLOCK_MAPPING_STYLE . 1)
-    (YAML_FLOW_MAPPING_STYLE . 2))
-  )
-(define enum-yaml_mapping_style_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_mapping_style_e-enum-nvl))
-(define-public (unwrap-enum-yaml_mapping_style_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_mapping_style_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_mapping_style_e v)
-  (assq-ref enum-yaml_mapping_style_e-enum-vnl v))
 
 ;; typedef enum yaml_token_type_e {
 ;;   YAML_NO_TOKEN,
@@ -571,41 +465,6 @@
 ;;   YAML_TAG_TOKEN,
 ;;   YAML_SCALAR_TOKEN,
 ;; };
-(define enum-yaml_token_type_e-enum-nvl
-  '((YAML_NO_TOKEN . 0)
-    (YAML_STREAM_START_TOKEN . 1)
-    (YAML_STREAM_END_TOKEN . 2)
-    (YAML_VERSION_DIRECTIVE_TOKEN . 3)
-    (YAML_TAG_DIRECTIVE_TOKEN . 4)
-    (YAML_DOCUMENT_START_TOKEN . 5)
-    (YAML_DOCUMENT_END_TOKEN . 6)
-    (YAML_BLOCK_SEQUENCE_START_TOKEN . 7)
-    (YAML_BLOCK_MAPPING_START_TOKEN . 8)
-    (YAML_BLOCK_END_TOKEN . 9)
-    (YAML_FLOW_SEQUENCE_START_TOKEN . 10)
-    (YAML_FLOW_SEQUENCE_END_TOKEN . 11)
-    (YAML_FLOW_MAPPING_START_TOKEN . 12)
-    (YAML_FLOW_MAPPING_END_TOKEN . 13)
-    (YAML_BLOCK_ENTRY_TOKEN . 14)
-    (YAML_FLOW_ENTRY_TOKEN . 15)
-    (YAML_KEY_TOKEN . 16)
-    (YAML_VALUE_TOKEN . 17)
-    (YAML_ALIAS_TOKEN . 18)
-    (YAML_ANCHOR_TOKEN . 19)
-    (YAML_TAG_TOKEN . 20)
-    (YAML_SCALAR_TOKEN . 21))
-  )
-(define enum-yaml_token_type_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_token_type_e-enum-nvl))
-(define-public (unwrap-enum-yaml_token_type_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_token_type_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_token_type_e v)
-  (assq-ref enum-yaml_token_type_e-enum-vnl v))
 
 ;; typedef struct yaml_token_s {
 ;;   /** The token type. */
@@ -784,30 +643,6 @@
 ;;   YAML_MAPPING_START_EVENT,
 ;;   YAML_MAPPING_END_EVENT,
 ;; };
-(define enum-yaml_event_type_e-enum-nvl
-  '((YAML_NO_EVENT . 0)
-    (YAML_STREAM_START_EVENT . 1)
-    (YAML_STREAM_END_EVENT . 2)
-    (YAML_DOCUMENT_START_EVENT . 3)
-    (YAML_DOCUMENT_END_EVENT . 4)
-    (YAML_ALIAS_EVENT . 5)
-    (YAML_SCALAR_EVENT . 6)
-    (YAML_SEQUENCE_START_EVENT . 7)
-    (YAML_SEQUENCE_END_EVENT . 8)
-    (YAML_MAPPING_START_EVENT . 9)
-    (YAML_MAPPING_END_EVENT . 10))
-  )
-(define enum-yaml_event_type_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_event_type_e-enum-nvl))
-(define-public (unwrap-enum-yaml_event_type_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_event_type_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_event_type_e v)
-  (assq-ref enum-yaml_event_type_e-enum-vnl v))
 
 ;; typedef struct yaml_event_s {
 ;;   /** The event type. */
@@ -1232,29 +1067,9 @@
 ;;   YAML_SEQUENCE_NODE,
 ;;   YAML_MAPPING_NODE,
 ;; };
-(define enum-yaml_node_type_e-enum-nvl
-  '((YAML_NO_NODE . 0)
-    (YAML_SCALAR_NODE . 1)
-    (YAML_SEQUENCE_NODE . 2)
-    (YAML_MAPPING_NODE . 3))
-  )
-(define enum-yaml_node_type_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_node_type_e-enum-nvl))
-(define-public (unwrap-enum-yaml_node_type_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_node_type_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_node_type_e v)
-  (assq-ref enum-yaml_node_type_e-enum-vnl v))
 
 ;; typedef struct yaml_node_s yaml_node_t;
 (define-public yaml_node_t-desc 'void)
-(define-public yaml_node_t fh-void)
-(define-public yaml_node_t? fh-void?)
-(define-public make-yaml_node_t make-fh-void)
 (define-public yaml_node_t*-desc (fh:pointer (delay yaml_node_t-desc)))
 (define-fh-pointer-type yaml_node_t* yaml_node_t*-desc yaml_node_t*? 
  make-yaml_node_t*)
@@ -1397,9 +1212,6 @@
 (define-fh-compound-type yaml_node_t yaml_node_t-desc yaml_node_t? 
  make-yaml_node_t)
 (export yaml_node_t yaml_node_t? make-yaml_node_t)
-(define-fh-pointer-type yaml_node_t* yaml_node_t*-desc yaml_node_t*? 
- make-yaml_node_t*)
-(export yaml_node_t* yaml_node_t*? make-yaml_node_t*)
 (ref<->deref!
   yaml_node_t*
   make-yaml_node_t*
@@ -1852,51 +1664,6 @@
 ;;   YAML_PARSE_FLOW_MAPPING_EMPTY_VALUE_STATE,
 ;;   YAML_PARSE_END_STATE,
 ;; };
-(define enum-yaml_parser_state_e-enum-nvl
-  '((YAML_PARSE_STREAM_START_STATE . 0)
-    (YAML_PARSE_IMPLICIT_DOCUMENT_START_STATE . 1)
-    (YAML_PARSE_DOCUMENT_START_STATE . 2)
-    (YAML_PARSE_DOCUMENT_CONTENT_STATE . 3)
-    (YAML_PARSE_DOCUMENT_END_STATE . 4)
-    (YAML_PARSE_BLOCK_NODE_STATE . 5)
-    (YAML_PARSE_BLOCK_NODE_OR_INDENTLESS_SEQUENCE_STATE
-      .
-      6)
-    (YAML_PARSE_FLOW_NODE_STATE . 7)
-    (YAML_PARSE_BLOCK_SEQUENCE_FIRST_ENTRY_STATE . 8)
-    (YAML_PARSE_BLOCK_SEQUENCE_ENTRY_STATE . 9)
-    (YAML_PARSE_INDENTLESS_SEQUENCE_ENTRY_STATE . 10)
-    (YAML_PARSE_BLOCK_MAPPING_FIRST_KEY_STATE . 11)
-    (YAML_PARSE_BLOCK_MAPPING_KEY_STATE . 12)
-    (YAML_PARSE_BLOCK_MAPPING_VALUE_STATE . 13)
-    (YAML_PARSE_FLOW_SEQUENCE_FIRST_ENTRY_STATE . 14)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_STATE . 15)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_KEY_STATE
-      .
-      16)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_VALUE_STATE
-      .
-      17)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_END_STATE
-      .
-      18)
-    (YAML_PARSE_FLOW_MAPPING_FIRST_KEY_STATE . 19)
-    (YAML_PARSE_FLOW_MAPPING_KEY_STATE . 20)
-    (YAML_PARSE_FLOW_MAPPING_VALUE_STATE . 21)
-    (YAML_PARSE_FLOW_MAPPING_EMPTY_VALUE_STATE . 22)
-    (YAML_PARSE_END_STATE . 23))
-  )
-(define enum-yaml_parser_state_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_parser_state_e-enum-nvl))
-(define-public (unwrap-enum-yaml_parser_state_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_parser_state_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_parser_state_e v)
-  (assq-ref enum-yaml_parser_state_e-enum-vnl v))
 
 ;; typedef struct yaml_alias_data_s {
 ;;   /** The anchor. */
@@ -2474,37 +2241,6 @@
 ;;   YAML_EMIT_BLOCK_MAPPING_VALUE_STATE,
 ;;   YAML_EMIT_END_STATE,
 ;; };
-(define enum-yaml_emitter_state_e-enum-nvl
-  '((YAML_EMIT_STREAM_START_STATE . 0)
-    (YAML_EMIT_FIRST_DOCUMENT_START_STATE . 1)
-    (YAML_EMIT_DOCUMENT_START_STATE . 2)
-    (YAML_EMIT_DOCUMENT_CONTENT_STATE . 3)
-    (YAML_EMIT_DOCUMENT_END_STATE . 4)
-    (YAML_EMIT_FLOW_SEQUENCE_FIRST_ITEM_STATE . 5)
-    (YAML_EMIT_FLOW_SEQUENCE_ITEM_STATE . 6)
-    (YAML_EMIT_FLOW_MAPPING_FIRST_KEY_STATE . 7)
-    (YAML_EMIT_FLOW_MAPPING_KEY_STATE . 8)
-    (YAML_EMIT_FLOW_MAPPING_SIMPLE_VALUE_STATE . 9)
-    (YAML_EMIT_FLOW_MAPPING_VALUE_STATE . 10)
-    (YAML_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE . 11)
-    (YAML_EMIT_BLOCK_SEQUENCE_ITEM_STATE . 12)
-    (YAML_EMIT_BLOCK_MAPPING_FIRST_KEY_STATE . 13)
-    (YAML_EMIT_BLOCK_MAPPING_KEY_STATE . 14)
-    (YAML_EMIT_BLOCK_MAPPING_SIMPLE_VALUE_STATE . 15)
-    (YAML_EMIT_BLOCK_MAPPING_VALUE_STATE . 16)
-    (YAML_EMIT_END_STATE . 17))
-  )
-(define enum-yaml_emitter_state_e-enum-vnl
-  (map (lambda (pair) (cons (cdr pair) (car pair)))
-       enum-yaml_emitter_state_e-enum-nvl))
-(define-public (unwrap-enum-yaml_emitter_state_e n)
-  (cond
-   ((symbol? n)
-    (or (assq-ref enum-yaml_emitter_state_e-enum-nvl n) (error "bad arg")))
-   ((integer? n) n)
-   (else (error "bad arg"))))
-(define-public (wrap-enum-yaml_emitter_state_e v)
-  (assq-ref enum-yaml_emitter_state_e-enum-vnl v))
 
 ;; typedef struct yaml_emitter_s {
 ;;   /**
@@ -3090,121 +2826,7 @@
 
 ;; access to enum symbols and #define'd constants:
 (define yaml-libyaml-symbol-tab
-  '((YAML_ANY_ENCODING . 0)
-    (YAML_UTF8_ENCODING . 1)
-    (YAML_UTF16LE_ENCODING . 2)
-    (YAML_UTF16BE_ENCODING . 3)
-    (YAML_ANY_BREAK . 0)
-    (YAML_CR_BREAK . 1)
-    (YAML_LN_BREAK . 2)
-    (YAML_CRLN_BREAK . 3)
-    (YAML_NO_ERROR . 0)
-    (YAML_MEMORY_ERROR . 1)
-    (YAML_READER_ERROR . 2)
-    (YAML_SCANNER_ERROR . 3)
-    (YAML_PARSER_ERROR . 4)
-    (YAML_COMPOSER_ERROR . 5)
-    (YAML_WRITER_ERROR . 6)
-    (YAML_EMITTER_ERROR . 7)
-    (YAML_ANY_SCALAR_STYLE . 0)
-    (YAML_PLAIN_SCALAR_STYLE . 1)
-    (YAML_SINGLE_QUOTED_SCALAR_STYLE . 2)
-    (YAML_DOUBLE_QUOTED_SCALAR_STYLE . 3)
-    (YAML_LITERAL_SCALAR_STYLE . 4)
-    (YAML_FOLDED_SCALAR_STYLE . 5)
-    (YAML_ANY_SEQUENCE_STYLE . 0)
-    (YAML_BLOCK_SEQUENCE_STYLE . 1)
-    (YAML_FLOW_SEQUENCE_STYLE . 2)
-    (YAML_ANY_MAPPING_STYLE . 0)
-    (YAML_BLOCK_MAPPING_STYLE . 1)
-    (YAML_FLOW_MAPPING_STYLE . 2)
-    (YAML_NO_TOKEN . 0)
-    (YAML_STREAM_START_TOKEN . 1)
-    (YAML_STREAM_END_TOKEN . 2)
-    (YAML_VERSION_DIRECTIVE_TOKEN . 3)
-    (YAML_TAG_DIRECTIVE_TOKEN . 4)
-    (YAML_DOCUMENT_START_TOKEN . 5)
-    (YAML_DOCUMENT_END_TOKEN . 6)
-    (YAML_BLOCK_SEQUENCE_START_TOKEN . 7)
-    (YAML_BLOCK_MAPPING_START_TOKEN . 8)
-    (YAML_BLOCK_END_TOKEN . 9)
-    (YAML_FLOW_SEQUENCE_START_TOKEN . 10)
-    (YAML_FLOW_SEQUENCE_END_TOKEN . 11)
-    (YAML_FLOW_MAPPING_START_TOKEN . 12)
-    (YAML_FLOW_MAPPING_END_TOKEN . 13)
-    (YAML_BLOCK_ENTRY_TOKEN . 14)
-    (YAML_FLOW_ENTRY_TOKEN . 15)
-    (YAML_KEY_TOKEN . 16)
-    (YAML_VALUE_TOKEN . 17)
-    (YAML_ALIAS_TOKEN . 18)
-    (YAML_ANCHOR_TOKEN . 19)
-    (YAML_TAG_TOKEN . 20)
-    (YAML_SCALAR_TOKEN . 21)
-    (YAML_NO_EVENT . 0)
-    (YAML_STREAM_START_EVENT . 1)
-    (YAML_STREAM_END_EVENT . 2)
-    (YAML_DOCUMENT_START_EVENT . 3)
-    (YAML_DOCUMENT_END_EVENT . 4)
-    (YAML_ALIAS_EVENT . 5)
-    (YAML_SCALAR_EVENT . 6)
-    (YAML_SEQUENCE_START_EVENT . 7)
-    (YAML_SEQUENCE_END_EVENT . 8)
-    (YAML_MAPPING_START_EVENT . 9)
-    (YAML_MAPPING_END_EVENT . 10)
-    (YAML_NO_NODE . 0)
-    (YAML_SCALAR_NODE . 1)
-    (YAML_SEQUENCE_NODE . 2)
-    (YAML_MAPPING_NODE . 3)
-    (YAML_PARSE_STREAM_START_STATE . 0)
-    (YAML_PARSE_IMPLICIT_DOCUMENT_START_STATE . 1)
-    (YAML_PARSE_DOCUMENT_START_STATE . 2)
-    (YAML_PARSE_DOCUMENT_CONTENT_STATE . 3)
-    (YAML_PARSE_DOCUMENT_END_STATE . 4)
-    (YAML_PARSE_BLOCK_NODE_STATE . 5)
-    (YAML_PARSE_BLOCK_NODE_OR_INDENTLESS_SEQUENCE_STATE
-      .
-      6)
-    (YAML_PARSE_FLOW_NODE_STATE . 7)
-    (YAML_PARSE_BLOCK_SEQUENCE_FIRST_ENTRY_STATE . 8)
-    (YAML_PARSE_BLOCK_SEQUENCE_ENTRY_STATE . 9)
-    (YAML_PARSE_INDENTLESS_SEQUENCE_ENTRY_STATE . 10)
-    (YAML_PARSE_BLOCK_MAPPING_FIRST_KEY_STATE . 11)
-    (YAML_PARSE_BLOCK_MAPPING_KEY_STATE . 12)
-    (YAML_PARSE_BLOCK_MAPPING_VALUE_STATE . 13)
-    (YAML_PARSE_FLOW_SEQUENCE_FIRST_ENTRY_STATE . 14)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_STATE . 15)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_KEY_STATE
-      .
-      16)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_VALUE_STATE
-      .
-      17)
-    (YAML_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_END_STATE
-      .
-      18)
-    (YAML_PARSE_FLOW_MAPPING_FIRST_KEY_STATE . 19)
-    (YAML_PARSE_FLOW_MAPPING_KEY_STATE . 20)
-    (YAML_PARSE_FLOW_MAPPING_VALUE_STATE . 21)
-    (YAML_PARSE_FLOW_MAPPING_EMPTY_VALUE_STATE . 22)
-    (YAML_PARSE_END_STATE . 23)
-    (YAML_EMIT_STREAM_START_STATE . 0)
-    (YAML_EMIT_FIRST_DOCUMENT_START_STATE . 1)
-    (YAML_EMIT_DOCUMENT_START_STATE . 2)
-    (YAML_EMIT_DOCUMENT_CONTENT_STATE . 3)
-    (YAML_EMIT_DOCUMENT_END_STATE . 4)
-    (YAML_EMIT_FLOW_SEQUENCE_FIRST_ITEM_STATE . 5)
-    (YAML_EMIT_FLOW_SEQUENCE_ITEM_STATE . 6)
-    (YAML_EMIT_FLOW_MAPPING_FIRST_KEY_STATE . 7)
-    (YAML_EMIT_FLOW_MAPPING_KEY_STATE . 8)
-    (YAML_EMIT_FLOW_MAPPING_SIMPLE_VALUE_STATE . 9)
-    (YAML_EMIT_FLOW_MAPPING_VALUE_STATE . 10)
-    (YAML_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE . 11)
-    (YAML_EMIT_BLOCK_SEQUENCE_ITEM_STATE . 12)
-    (YAML_EMIT_BLOCK_MAPPING_FIRST_KEY_STATE . 13)
-    (YAML_EMIT_BLOCK_MAPPING_KEY_STATE . 14)
-    (YAML_EMIT_BLOCK_MAPPING_SIMPLE_VALUE_STATE . 15)
-    (YAML_EMIT_BLOCK_MAPPING_VALUE_STATE . 16)
-    (YAML_EMIT_END_STATE . 17)
+  '((YAML_H . #f)
     (YAML_NULL_TAG . "tag:yaml.org,2002:null")
     (YAML_BOOL_TAG . "tag:yaml.org,2002:bool")
     (YAML_STR_TAG . "tag:yaml.org,2002:str")

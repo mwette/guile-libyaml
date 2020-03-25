@@ -1,4 +1,4 @@
-;; yaml.scm - yaml demo
+;; yaml.scm - yaml
 
 ;; Copyright (C) 2020 Matthew R. Wette
 ;;
@@ -15,8 +15,10 @@
 ;; You should have received a copy of the GNU Lesser General Public License
 ;; along with this library; if not, see <http://www.gnu.org/licenses/>
 
+;;; Code:
+
 (define-module (yaml)
-  #:export (cnvt-tree)
+  #:export (read-yaml-file cnvt-tree)
   #:use-module (yaml libyaml)
   #:use-module (yaml ffi-help-rt)
   #:use-module (bytestructures guile)
@@ -100,5 +102,25 @@
        (ffi:pointer->string (ffi:make-pointer (bs-ref node 'tag))))))
 
   (cnvt-node root))
+
+(define (read-yaml-file filename)
+  (let* ((parser (make-yaml_parser_t))
+	 (&parser (pointer-to parser))
+	 (document (make-yaml_document_t))
+	 (&document (pointer-to document))
+	 (file (fopen filename "r")))
+
+    (yaml_parser_initialize &parser)
+    (yaml_parser_set_input_file &parser file)
+    (yaml_parser_load &parser &document)
+    
+    (let* ((start (fh-object-ref document 'nodes 'start))
+	   (stack (bytestructure yaml_node_t*-desc start))
+	   (root (fh-object-val (yaml_document_get_root_node &document)))
+	   (yaml (cnvt-tree root stack)))
+      (yaml_document_delete &document)
+      (yaml_parser_delete &parser)
+      (fclose file)
+      yaml)))
 
 ;; --- last line ---

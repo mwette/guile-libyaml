@@ -2,7 +2,7 @@
  doe: "a deer, a female deer"
  ray: "a drop of golden sun"
  pi: &pi 3.14159
- xmas: &xmas true
+ xmas: true
  xpi: *pi
  calling-birds: 
    - huey

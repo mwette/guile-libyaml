@@ -3,6 +3,7 @@
  ray: "a drop of golden sun"
  pi: &pi 3.14159
  xmas: true
+ french-hens: 3
  xpi: *pi
  calling-birds: 
    - huey

@@ -1,6 +1,6 @@
 ;; yaml.scm - yaml
 
-;; Copyright (C) 2020 Matthew R. Wette
+;; Copyright (C) 2020-2021 Matthew R. Wette
 ;;
 ;; This library is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
 (define-module (yaml)
   #:export (read-yaml-file cnvt-tree)
   #:use-module (yaml libyaml)
-  #:use-module (yaml ffi-help-rt)
+  #:use-module (system ffi-help-rt)
   #:use-module (bytestructures guile)
   #:use-module ((system foreign) #:prefix ffi:))
 

@@ -9,6 +9,7 @@
 
 (define-ffi-module (yaml libyaml)
   #:include '("yaml.h")
-  #:library '("libyaml"))
+  #:library '("libyaml")
+)
 
 ;; --- last line ---

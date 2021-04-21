@@ -108,7 +108,12 @@
 	 (&parser (pointer-to parser))
 	 (document (make-yaml_document_t))
 	 (&document (pointer-to document))
-	 (file (fopen filename "r")))
+	 (file (if (access filename R_OK)
+		   (open-input-file filename)
+		   (raise-exception
+		    (make-exception-with-message
+		     (string-append "read-yaml-file: can't access file:"
+				    filename))))))
 
     (yaml_parser_initialize &parser)
     (yaml_parser_set_input_file &parser file)

@@ -30,6 +30,19 @@
 (use-modules (ice-9 pretty-print))
 (define pp pretty-print)
 
+(cond-expand
+ (guile-3
+  (use-modules (ice-9 exceptions))
+  (define (file-not-found filename)
+    (raise-exception
+     (make-exception-with-message
+      (string-append
+       "read-yaml-file: can't access file: " filename)))))
+ (else
+  (define (file-not-found filename)
+    (scm-error 'misc "read-yaml-file"
+	       "file not found: ~S" (list filename) #f))))
+
 (define-syntax-rule (bs-ref obj ...)
   (bytestructure-ref obj ...))
 
@@ -108,12 +121,9 @@
 	 (&parser (pointer-to parser))
 	 (document (make-yaml_document_t))
 	 (&document (pointer-to document))
-	 (file (if (access filename R_OK)
-		   (open-input-file filename)
-		   (raise-exception
-		    (make-exception-with-message
-		     (string-append "read-yaml-file: can't access file:"
-				    filename))))))
+	 (file (if (access? filename R_OK)
+		   (fopen filename "r")
+		   (file-not-found filename))))
 
     (yaml_parser_initialize &parser)
     (yaml_parser_set_input_file &parser file)

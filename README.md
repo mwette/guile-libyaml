@@ -5,6 +5,8 @@ Run the test via
 
     guile demo1.scm
 
+This one works with 
+
 # Dependencies
 See guix.scm for dependencies.
 

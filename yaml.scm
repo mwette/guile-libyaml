@@ -20,10 +20,11 @@
 (define-module (yaml)
   #:export (read-yaml-file cnvt-tree)
   #:use-module (yaml libyaml)
-  #:use-module (yaml cdata)
+  #:use-module (nyacc foreign cdata)
   #:use-module ((system foreign) #:prefix ffi:))
 
 (define ptr-addr ffi:pointer-address)
+
 (define-once cdata&-sel
   (lambda (data . tags)
     (let* ((data (apply cdata-sel data tags))

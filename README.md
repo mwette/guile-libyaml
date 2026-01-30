@@ -1,5 +1,5 @@
 # guile-libyaml
-simple yaml module using ffi-helper from www.nongnu.org/nyacc
+simple yaml module using ffi-helper from github.com/mwette/nyacc
 
 This version 3.0.0 requires nyacc 3.0 or better.
 

@@ -24,6 +24,7 @@
   #:use-module ((system foreign) #:prefix ffi:))
 
 (define ptr-addr ffi:pointer-address)
+
 (define-once cdata&-sel
   (lambda (data . tags)
     (let* ((data (apply cdata-sel data tags))
